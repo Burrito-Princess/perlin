@@ -1,0 +1,88 @@
+<html>
+  <head>
+    <script src="main.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            overflow-y: hidden;
+        }
+    </style>
+  </head>
+  <body>
+    <canvas id="cnvs"></canvas>
+    <script>
+      "use strict";
+      let cnvs = document.getElementById("cnvs");
+    //   cnvs.width = cnvs.height = 512;
+    cnvs.width =  window.innerWidth;
+    cnvs.height = window.innerHeight;
+      let ctx = cnvs.getContext("2d");
+
+      const GRID_SIZE_X = window.innerWidth/150;
+      const GRID_SIZE_Y = window.innerHeight/150;
+      const RESOLUTION = 16;
+      const COLOR_SCALE = 250;
+      let count = 0;
+      const speed = 400;
+
+      let pixel_size = cnvs.width / RESOLUTION;
+      let num_pixels_x = GRID_SIZE_X / RESOLUTION;
+      let num_pixels_y = GRID_SIZE_Y / RESOLUTION;
+      
+      setInterval(function () {
+        ctx.clearRect(0, 0, cnvs.width, cnvs.height);
+        count += num_pixels_x / GRID_SIZE_X;
+        for (let y = 0; y < GRID_SIZE_Y + 1; y += num_pixels_y / GRID_SIZE_Y) {
+          for (let x = 0; x < GRID_SIZE_X + 1; x += num_pixels_x / GRID_SIZE_X) {
+            let v = parseInt(perlin.get(x + count, y) * COLOR_SCALE);
+            // console.log("X : " + x + "|| Y: " + y + "||" + v)
+            // console.log(v);
+            switch (v) {
+              default:
+                ctx.fillStyle = "#000000";
+                break;
+            case -1250:
+            ctx.fillStyle = "#0006b1";
+            break;
+              case -1000: //deeo ocean;
+                ctx.fillStyle = "#0006b1";
+              case -750: //shallow water
+                ctx.fillStyle = "#0006b1";
+                break;
+              case -500: //shallow waters
+                ctx.fillStyle = "#0021f3";
+                break;
+              case -250: //shallow water
+                ctx.fillStyle = "#0021f3";
+                break;
+              case 0: //shallow water
+                ctx.fillStyle = "#f8f0a4";
+                break;
+              case 250: //medow
+                ctx.fillStyle = "#138510";
+                break;
+              case 500: //dry medow 
+                ctx.fillStyle = "#708C50";
+                break;
+              case 750: //mountain
+                ctx.fillStyle = "#808080";
+                break;
+                case 1000: // snow 
+                    ctx.fillStyle = "#f2f2f2";
+            }
+            // ctx.fillStyle = "hsl(" + v + ",50%,50%)";
+            ctx.fillRect(
+              (x / GRID_SIZE_X) * cnvs.width,
+              (y / GRID_SIZE_Y) * cnvs.height,
+              pixel_size,
+              pixel_size
+            );
+          }
+        }
+        // debugger;
+      }, speed);
+    </script>
+  </body>
+</html>
