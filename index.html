@@ -7,8 +7,7 @@
     * {
       margin: 0;
       padding: 0;
-      overflow-x: hidden;
-      overflow-y: hidden;
+      overflow: hidden;
     }
   </style>
 </head>
@@ -29,6 +28,7 @@
     const COLOR_SCALE = 250;
     let count = 0;
     const speed = 400;
+    const num_trees = 100;
 
     let pixel_size = cnvs.width / RESOLUTION;
     let num_pixels_x = GRID_SIZE_X / RESOLUTION;
@@ -41,7 +41,7 @@
       for (let y = 0; y < GRID_SIZE_Y; y += num_pixels_y / GRID_SIZE_Y) {
         for (let x = 0; x < GRID_SIZE_X; x += num_pixels_x / GRID_SIZE_X) {
           let vL = perlin.get(x + count, y, 7);
-          let vT = perlin_T.get(x + count, y , 2);
+          let vT = perlin_T.get(x + count, y , 1/(num_trees*0.1));
           // console.log("------")
           // console.log(vL);
           // console.log(vT);
@@ -56,8 +56,6 @@
             ctx.fillStyle = "#f8f0a4"; // beach
           } else if (vL <= 0) {
             ctx.fillStyle = '#138510'; //meadow
-          } else if (vL == 0.5) {
-            ctx.fillStyle = '#306b40'; //tree
           } else if (vL <= 1) {
             ctx.fillStyle = "#708C50"; // dry meadow
           } else if (vL <= 2) {
