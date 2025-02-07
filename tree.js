@@ -1,8 +1,6 @@
 'use strict';
-let grid = [];
-let nodes = 4;
 
-let perlin = {
+let perlin_T = {
   rand_vect: function () {
     let theta = Math.random() * 2 * Math.PI;
     let tree = Math.floor(Math.random()*2);
@@ -54,4 +52,4 @@ let perlin = {
 
   },
 };
-perlin.seed();
+perlin_T.seed();
